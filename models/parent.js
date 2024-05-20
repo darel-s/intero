@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
 class Parent extends Model {}
 
@@ -44,6 +45,7 @@ Parent.init(
     sequelize,
     modelName: "Parent",
     tableName: "parents",
+    timestamps: false,
   }
 );
 

@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
 class UserType extends Model {}
 
@@ -18,6 +19,7 @@ UserType.init(
     sequelize,
     modelName: "UserType",
     tableName: "user_types",
+    timestamps: false, // Menonaktifkan timestamps
   }
 );
 

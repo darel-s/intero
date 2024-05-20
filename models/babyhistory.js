@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const Baby = require("./baby");
+const sequelize = require("../config/database");
 
 class BabyHistory extends Model {}
 
@@ -52,7 +53,10 @@ BabyHistory.init(
     sequelize,
     modelName: "BabyHistory",
     tableName: "baby_history",
+    timestamps: false,
   }
 );
+
+BabyHistory.belongsTo(Baby, { foreignKey: "baby_id" });
 
 module.exports = BabyHistory;

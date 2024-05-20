@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const Parent = require("./parent");
 const HealthCondition = require("./healthcondition");
+const sequelize = require("../config/database");
 
 class Baby extends Model {}
 
@@ -59,7 +60,11 @@ Baby.init(
     sequelize,
     modelName: "Baby",
     tableName: "babies",
+    timestamps: false,
   }
 );
+
+Baby.belongsTo(Parent, { foreignKey: "parent_id" });
+Baby.hasMany(HealthCondition, { foreignKey: "id" });
 
 module.exports = Baby;

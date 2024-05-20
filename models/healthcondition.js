@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
 class HealthCondition extends Model {}
 
@@ -18,6 +19,7 @@ HealthCondition.init(
     sequelize,
     modelName: "HealthCondition",
     tableName: "health_condition",
+    timestamps: false,
   }
 );
 

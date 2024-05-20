@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const UserType = require("./usertype");
-const Puskesmas = require("./puskesmas");
+const sequelize = require("../config/database");
 
 class User extends Model {}
 
@@ -32,7 +31,7 @@ User.init(
     user_type_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: UserType,
+        model: "UserTypes", // Pastikan ini sesuai dengan nama tabel UserType
         key: "id",
       },
       onUpdate: "CASCADE",
@@ -40,13 +39,6 @@ User.init(
     },
     puskesmas_location: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Puskesmas,
-        key: "id",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "SET NULL",
-      unique: true,
       allowNull: true,
     },
   },
@@ -54,6 +46,7 @@ User.init(
     sequelize,
     modelName: "User",
     tableName: "users",
+    timestamps: false, // Menonaktifkan timestamps
   }
 );
 

@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
 class Puskesmas extends Model {}
 
@@ -18,6 +19,7 @@ Puskesmas.init(
     sequelize,
     modelName: "Puskesmas",
     tableName: "puskesmas",
+    timestamps: false,
   }
 );
 
