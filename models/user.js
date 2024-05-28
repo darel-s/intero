@@ -32,7 +32,7 @@ User.init(
         user_type_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: "UserTypes", // Pastikan ini sesuai dengan nama tabel UserType
+                model: "UserTypes",
                 key: "id",
             },
             onUpdate: "CASCADE",
