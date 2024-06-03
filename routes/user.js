@@ -77,9 +77,18 @@ router.post("/login", async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ id: user.id }, "your-secret-key", {
-            expiresIn: "60d",
-        });
+        const token = jwt.sign(
+            {
+                id: user.id,
+                full_name: user.full_name,
+                user_type_id: user.user_type_id,
+                puskesmas_location: user.puskesmas_location,
+            },
+            "your-secret-key",
+            {
+                expiresIn: "60d",
+            }
+        );
 
         user.password = undefined;
 
