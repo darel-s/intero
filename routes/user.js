@@ -6,7 +6,9 @@ const jwt = require("jsonwebtoken");
 
 router.get("/", async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+            attributes: { exclude: ["password"] },
+        });
         res.json(users);
     } catch (err) {
         console.error(err.message);
@@ -126,6 +128,10 @@ router.put("/:id", async (req, res) => {
         }
 
         await user.update(req.body);
+
+        user = user.get({ plain: true });
+
+        delete user.password;
 
         res.json({ msg: "User updated successfully", user });
     } catch (err) {

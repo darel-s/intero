@@ -35,6 +35,9 @@ Parent.init(
         rt: {
             type: DataTypes.STRING,
         },
+        rw: {
+            type: DataTypes.STRING,
+        },
         puskesmas_location: {
             type: DataTypes.INTEGER,
             allowNull: false,

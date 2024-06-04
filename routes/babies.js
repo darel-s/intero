@@ -29,7 +29,10 @@ router.get("/babies/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const baby = await Baby.findByPk(id, {
-            include: [Parent, HealthCondition],
+            include: [
+                Parent,
+                { model: HealthCondition, as: "HealthCondition" },
+            ],
         });
         if (!baby) {
             return res.status(404).json({ msg: "Baby not found" });
@@ -127,6 +130,25 @@ router.delete("/babies/:id", async (req, res) => {
         await baby.destroy();
 
         res.json({ msg: "Baby deleted successfully" });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
+
+// Get babies by puskesmas_location
+router.get("/babies/location/:location", async (req, res) => {
+    try {
+        const babies = await Baby.findAll({
+            include: [
+                {
+                    model: Parent,
+                    where: { puskesmas_location: req.params.location },
+                    attributes: ["id"],
+                },
+            ],
+        });
+        res.json(babies);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server error");
