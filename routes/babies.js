@@ -52,6 +52,7 @@ router.post("/babies", async (req, res) => {
         birth_weight,
         birth_height,
         condition_id,
+        puskesmas_location,
     } = req.body;
 
     try {
@@ -64,6 +65,7 @@ router.post("/babies", async (req, res) => {
             birth_weight,
             birth_height,
             condition_id,
+            puskesmas_location,
         });
 
         res.json({ msg: "Baby created successfully", baby: newBaby });

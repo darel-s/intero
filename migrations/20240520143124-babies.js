@@ -17,7 +17,7 @@ module.exports = {
                 allowNull: false,
             },
             gender: {
-                type: Sequelize.ENUM("Male", "Female"),
+                type: jSequelize.ENUM("Male", "Female"),
                 allowNull: false,
             },
             nik: {

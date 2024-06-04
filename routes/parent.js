@@ -31,24 +31,28 @@ router.get("/parents/:id", async (req, res) => {
 
 // Create a new parent
 router.post("/parents", async (req, res) => {
-    const { parent_name, kk_number, nik, phone_number, address, rt, rw } =
-        req.body;
-
+    const {
+        parent_name,
+        kk_number,
+        nik,
+        phone_number,
+        address,
+        rt,
+        puskesmas_location,
+    } = req.body;
     try {
-        const newParent = await Parent.create({
+        const parent = await Parent.create({
             parent_name,
             kk_number,
             nik,
             phone_number,
             address,
             rt,
-            rw,
+            puskesmas_location,
         });
-
-        res.json({ msg: "Parent created successfully", parent: newParent });
+        res.status(201).json(parent);
     } catch (err) {
         console.error(err.message);
-        console.log(err);
         res.status(500).send("Server error");
     }
 });
@@ -98,6 +102,21 @@ router.delete("/parents/:id", async (req, res) => {
     } catch (err) {
         console.error(err.message);
         console.error(err);
+        res.status(500).send("Server error");
+    }
+});
+
+// Get parents by puskesmas_location
+router.get("/parents/location/:location", async (req, res) => {
+    try {
+        const parents = await Parent.findAll({
+            where: {
+                puskesmas_location: req.params.location,
+            },
+        });
+        res.json(parents);
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send("Server error");
     }
 });

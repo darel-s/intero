@@ -55,6 +55,10 @@ Baby.init(
             onUpdate: "CASCADE",
             onDelete: "SET NULL",
         },
+        puskesmas_location: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     },
     {
         sequelize,
