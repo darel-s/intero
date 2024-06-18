@@ -38,6 +38,7 @@ router.post("/parents", async (req, res) => {
         phone_number,
         address,
         rt,
+        rw,
         puskesmas_location,
     } = req.body;
     try {
@@ -48,9 +49,13 @@ router.post("/parents", async (req, res) => {
             phone_number,
             address,
             rt,
+            rw,
             puskesmas_location,
         });
-        res.status(201).json(parent);
+        res.status(200).json({
+            message: "Parent created successfully",
+            parent,
+        });
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server error");
@@ -60,8 +65,16 @@ router.post("/parents", async (req, res) => {
 // Update a parent
 router.put("/parents/:id", async (req, res) => {
     const { id } = req.params;
-    const { parent_name, kk_number, nik, phone_number, address, rt, rw } =
-        req.body;
+    const {
+        parent_name,
+        kk_number,
+        nik,
+        phone_number,
+        address,
+        rt,
+        rw,
+        puskesmas_location,
+    } = req.body;
 
     try {
         let parent = await Parent.findByPk(id);
@@ -77,6 +90,7 @@ router.put("/parents/:id", async (req, res) => {
             address,
             rt,
             rw,
+            puskesmas_location,
         });
 
         res.json({ msg: "Parent updated successfully", parent });

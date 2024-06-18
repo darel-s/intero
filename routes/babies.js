@@ -81,36 +81,19 @@ router.post("/babies", async (req, res) => {
 
 // Update a baby
 router.put("/babies/:id", async (req, res) => {
-    const { id } = req.params;
-    const {
-        baby_name,
-        birth_date,
-        gender,
-        nik,
-        parent_id,
-        birth_weight,
-        birth_height,
-        condition_id,
-    } = req.body;
-
     try {
-        let baby = await Baby.findByPk(id);
-        if (!baby) {
-            return res.status(404).json({ msg: "Baby not found" });
+        const parentExists = await Parent.findByPk(req.body.parent_id);
+        if (!parentExists) {
+            return res.status(400).send("Parent not found");
         }
 
-        await baby.update({
-            baby_name,
-            birth_date,
-            gender,
-            nik,
-            parent_id,
-            birth_weight,
-            birth_height,
-            condition_id,
+        await Baby.update(req.body, {
+            where: {
+                id: req.params.id,
+            },
         });
 
-        res.json({ msg: "Baby updated successfully", baby });
+        res.json({ msg: "Baby updated successfully" });
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server error");
